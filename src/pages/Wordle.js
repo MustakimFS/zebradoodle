@@ -7,6 +7,7 @@ import Modal from '../components/Modal';
 import StatsPanel from '../components/StatsPanel';
 import useWordGame from '../lib/useWordGame';
 import ANSWERS from '../data/answers';
+import { ALLOWED_GUESSES } from '../data/allowedGuesses';
 import { dayIndex, pickIndex, todayKey } from '../lib/daily';
 import { toast } from '../components/Toast';
 import { getStats } from '../lib/storage';
@@ -25,8 +26,8 @@ function pickDailyAnswer() {
 }
 
 function validateWord(guess) {
-  if (!ANSWER_SET.has(guess)) return 'Not in word list';
-  return null;
+  if (ANSWER_SET.has(guess) || ALLOWED_GUESSES.has(guess)) return null;
+  return 'Not in word list';
 }
 
 function Wordle() {
