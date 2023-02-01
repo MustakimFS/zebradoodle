@@ -23,21 +23,33 @@ export default function useWordGame({
   const [error, setError] = useState(null);
   const [hydrated, setHydrated] = useState(false);
 
-  // Restore daily progress on mount.
+  // Reset board and try to restore daily progress whenever the game
+  // identity changes (mode toggle, day rollover, or a new practice answer).
+  // Without this, navigating from practice to daily would leak practice
+  // guesses into the daily save.
+  const answersKey = answers.join('|');
   useEffect(() => {
-    if (mode !== 'daily' || !dayKey) {
-      setHydrated(true);
-      return;
-    }
-    const saved = getDailyProgress(gameId, dayKey);
-    if (saved && Array.isArray(saved.guesses) && saved.answersKey === answers.join('|')) {
-      setGuesses(saved.guesses);
-      setWon(!!saved.won);
-      setLost(!!saved.lost);
+    setCurrent('');
+    setInvalid(false);
+    setError(null);
+    if (mode === 'daily' && dayKey) {
+      const saved = getDailyProgress(gameId, dayKey);
+      if (saved && Array.isArray(saved.guesses) && saved.answersKey === answersKey) {
+        setGuesses(saved.guesses);
+        setWon(!!saved.won);
+        setLost(!!saved.lost);
+      } else {
+        setGuesses([]);
+        setWon(false);
+        setLost(false);
+      }
+    } else {
+      setGuesses([]);
+      setWon(false);
+      setLost(false);
     }
     setHydrated(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [gameId, mode, dayKey, answersKey]);
 
   const statusesPerBoard = useMemo(() => {
     return answers.map((ans) => guesses.map((g) => scoreGuess(ans, g)));
