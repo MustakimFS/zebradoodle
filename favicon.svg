@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#0f1115"/>
+  <g font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="22" text-anchor="middle">
+    <rect x="6"  y="14" width="16" height="16" rx="3" fill="#538d4e"/>
+    <text x="14" y="29" fill="#fff">Z</text>
+    <rect x="24" y="14" width="16" height="16" rx="3" fill="#b59f3b"/>
+    <text x="32" y="29" fill="#fff">D</text>
+    <rect x="42" y="14" width="16" height="16" rx="3" fill="#3a3a3c"/>
+    <text x="50" y="29" fill="#fff">?</text>
+    <rect x="15" y="34" width="16" height="16" rx="3" fill="#538d4e"/>
+    <text x="23" y="49" fill="#fff">+</text>
+    <rect x="33" y="34" width="16" height="16" rx="3" fill="#b59f3b"/>
+    <text x="41" y="49" fill="#fff">=</text>
+  </g>
+</svg>
